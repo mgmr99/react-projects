@@ -22,10 +22,14 @@ function App() {
   }, [length, numberAllowed, charAllowed, setPassword]);
 
   const copyPasswordToClipboard = useCallback(() => {
+    const copyButton = document.getElementById("copyButton");
+    copyButton.innerHTML = "copied";
+    //change color of button when copied
+    copyButton.classList.add("bg-green-500");
     passwordRef.current?.select();
     // passwordRef.current?.setSelectionRange(0, 999);
     window.navigator.clipboard.writeText(password);
-  }, [password]);
+  }, [password, passwordRef, setPassword, setLength, setNumberAllowed, setCharAllowed]);
 
   useEffect(() => {
     passwordGenerator();
@@ -47,6 +51,7 @@ function App() {
           <button
             onClick={copyPasswordToClipboard}
             className="outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0"
+            id="copyButton"
           >
             copy
           </button>
